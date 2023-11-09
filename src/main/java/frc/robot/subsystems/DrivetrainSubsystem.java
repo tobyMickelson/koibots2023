@@ -15,10 +15,10 @@ import java.util.function.DoubleSupplier;
 public class DrivetrainSubsystem extends SubsystemBase {
     private static DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
 
-    private CANSparkMax primaryLeftMotor;
-    private CANSparkMax primaryRightMotor;
-    private CANSparkMax secondaryLeftMotor;
-    private CANSparkMax secondaryRightMotor;
+    private static CANSparkMax primaryLeftMotor;
+    private static CANSparkMax primaryRightMotor;
+    private static CANSparkMax secondaryLeftMotor;
+    private static CANSparkMax secondaryRightMotor;
 
     /*
     private RelativeEncoder primaryLeftEncoder;
@@ -26,10 +26,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private RelativeEncoder secondaryLeftEncoder;
     private RelativeEncoder secondaryRightEncoder;
     */
-
-
-
-    private double speedCoefficient = Constants.Motors.SPEED_COEFFICIENT;
 
     public DrivetrainSubsystem() {
         primaryLeftMotor = new CANSparkMax(Constants.Motors.PRIMARY_LEFT_DRIVE, MotorType.kBrushless);
@@ -71,8 +67,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // COMMANDS
 
     public class teleopCommand extends CommandBase {
-        private DoubleSupplier leftSpeed;
-        private DoubleSupplier rightSpeed;
+        private final DoubleSupplier leftSpeed;
+        private final DoubleSupplier rightSpeed;
 
         public teleopCommand(DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
             this.leftSpeed = leftSpeed;
@@ -82,19 +78,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         @Override
         public void initialize() {
-
         }
 
         @Override
         public void execute() {
             DrivetrainSubsystem.this.setMotors(
-                deadzone(leftSpeed.getAsDouble()) * speedCoefficient,
-                deadzone(leftSpeed.getAsDouble()) * speedCoefficient
+                deadzone(leftSpeed.getAsDouble()) * Constants.Motors.SPEED_COEFFICIENT,
+                deadzone(rightSpeed.getAsDouble()) * Constants.Motors.SPEED_COEFFICIENT
             );
         }
 
         private double deadzone(double in) {
-            return in;
+            if (in > Constants.Controls.DEADZONE || in < -Constants.Controls.DEADZONE) {return in;}
+            else {return 0.0;}
         }
     }
 
