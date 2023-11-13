@@ -21,10 +21,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private static CANSparkMax secondaryRightMotor;
 
     /*
-    private RelativeEncoder primaryLeftEncoder;
-    private RelativeEncoder primaryRightEncoder;
-    private RelativeEncoder secondaryLeftEncoder;
-    private RelativeEncoder secondaryRightEncoder;
+    private static RelativeEncoder primaryLeftEncoder;
+    private static RelativeEncoder primaryRightEncoder;
+    private static RelativeEncoder secondaryLeftEncoder;
+    private static RelativeEncoder secondaryRightEncoder;
     */
 
     public DrivetrainSubsystem() {
@@ -33,8 +33,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
         secondaryLeftMotor = new CANSparkMax(Constants.Motors.SECONDARY_LEFT_DRIVE, MotorType.kBrushless);
         secondaryRightMotor = new CANSparkMax(Constants.Motors.SECONDARY_RIGHT_DRIVE, MotorType.kBrushless);
 
-        primaryLeftMotor.setInverted(Constants.Motors.INVERT_LEFT);
-        primaryRightMotor.setInverted(Constants.Motors.INVERT_RIGHT);
+        primaryLeftMotor.setInverted(Constants.Motors.INVERT_LEFT_DRIVE);
+        primaryRightMotor.setInverted(Constants.Motors.INVERT_RIGHT_DRIVE);
         secondaryLeftMotor.follow(primaryLeftMotor);
         secondaryRightMotor.follow(primaryRightMotor);
 
@@ -66,11 +66,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     // COMMANDS
 
-    public class teleopCommand extends CommandBase {
+    public class TeleopCommand extends CommandBase {
         private final DoubleSupplier leftSpeed;
         private final DoubleSupplier rightSpeed;
 
-        public teleopCommand(DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
+        public TeleopCommand(DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
             this.leftSpeed = leftSpeed;
             this.rightSpeed = rightSpeed;
             addRequirements(DrivetrainSubsystem.this);
@@ -78,38 +78,30 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         @Override
         public void initialize() {
+
         }
 
         @Override
         public void execute() {
             DrivetrainSubsystem.this.setMotors(
-                deadzone(leftSpeed.getAsDouble()) * Constants.Motors.SPEED_COEFFICIENT,
-                deadzone(rightSpeed.getAsDouble()) * Constants.Motors.SPEED_COEFFICIENT
+                deadzone(leftSpeed.getAsDouble()) * Constants.Motors.DRIVE_SPEED_COEFFICIENT,
+                deadzone(rightSpeed.getAsDouble()) * Constants.Motors.DRIVE_SPEED_COEFFICIENT
             );
         }
 
         private double deadzone(double in) {
-            if (in > Constants.Controls.DEADZONE || in < -Constants.Controls.DEADZONE) {return in;}
+            if (in > Constants.Controls.DRIVE_DEADZONE || in < -Constants.Controls.DRIVE_DEADZONE) {return in;}
             else {return 0.0;}
         }
     }
 
-    public CommandBase exampleMethodCommand() {
-        // Inline construction of command goes here.
-        // Subsystem::RunOnce implicitly requires `this` subsystem.
-        return runOnce(
-                () -> {
-                    /* one-time action goes here */
-                });
-    }
-
     @Override
     public void periodic() {
-        // This method will be called once per scheduler run
+
     }
 
     @Override
     public void simulationPeriodic() {
-        // This method will be called once per scheduler run during simulation
+
     }
 }

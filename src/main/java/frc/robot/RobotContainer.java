@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
-import frc.robot.Constants;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -44,17 +42,13 @@ public class RobotContainer {
         // cancelling on release.
         // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-        /*
-        DrivetrainSubsystem.get().setDefaultCommand(DrivetrainSubsystem.get().new teleopCommand(
+        DrivetrainSubsystem.get().setDefaultCommand(DrivetrainSubsystem.get().new TeleopCommand(
                 controller::getLeftY,
                 controller::getRightY
         ));
-        */
 
-        DrivetrainSubsystem.get().setDefaultCommand(DrivetrainSubsystem.get().new teleopCommand(
-                controller::getLeftY,
-                controller::getRightY
-        ));
+        controller.rightTrigger(Constants.Controls.TRIGGER_DEADZONE).whileTrue(new IntakeCommand());
+        controller.rightBumper().whileTrue(new ReverseIntakeCommand());
     }
 
     /**

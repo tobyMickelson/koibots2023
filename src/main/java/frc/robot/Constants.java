@@ -14,19 +14,26 @@ package frc.robot;
  */
 public final class Constants {
     public static class Motors {
-        public static final double SPEED_COEFFICIENT = 0.25;
+        public static final double DRIVE_SPEED_COEFFICIENT = 0.25;
+        public static final double INTAKE_SPEED = 0.5;
+        public static final double INTAKE_REVERSE_SPEED = 0.5;
+        public static final double MIDTAKE_SPEED = 0.5;
+        public static final double MIDTAKE_REVERSE_SPEED = 0.5;
         public static final double ROTATION_TO_DISTANCE = 0.04873967373;
-        public static final boolean INVERT_LEFT = false;
-        public static final boolean INVERT_RIGHT = true;
+        public static final boolean INVERT_LEFT_DRIVE = false;
+        public static final boolean INVERT_RIGHT_DRIVE = true;
         public static final int PRIMARY_LEFT_DRIVE = 15;
         public static final int PRIMARY_RIGHT_DRIVE = 12;
         public static final int SECONDARY_LEFT_DRIVE = 14;
         public static final int SECONDARY_RIGHT_DRIVE = 13;
+        public static final int INTAKE_MOTOR = 10;
+        public static final int MIDTAKE_MOTOR = 4;
     }
     public static class Controls {
         public static final int DRIVER_PORT = 0;
         public static final int LEFT_DRIVE_AXIS = 1;
         public static final int RIGHT_DRIVE_AXIS = 3;
-        public static final double DEADZONE = 0.1;
+        public static final double DRIVE_DEADZONE = 0.1;
+        public static final double TRIGGER_DEADZONE = 0.5;
     }
 }
