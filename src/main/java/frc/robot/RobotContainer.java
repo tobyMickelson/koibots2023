@@ -34,21 +34,16 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-        // new Trigger(m_exampleSubsystem::exampleCondition)
-        //         .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-        // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-        // cancelling on release.
-        // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
         DrivetrainSubsystem.get().setDefaultCommand(DrivetrainSubsystem.get().new TeleopCommand(
                 controller::getLeftY,
                 controller::getRightY
         ));
 
         controller.rightTrigger(Constants.Controls.TRIGGER_DEADZONE).whileTrue(new IntakeCommand());
-        controller.rightBumper().whileTrue(new ReverseIntakeCommand());
+        controller.rightBumper().whileTrue(new ReverseHandlerCommand());
+
+        controller.leftTrigger(Constants.Controls.TRIGGER_DEADZONE).whileTrue(new ShooterCommand());
+        controller.leftBumper().whileTrue(new ShooterCommand(Constants.Motors.SLOW_SHOOTER_SPEED));
     }
 
     /**
