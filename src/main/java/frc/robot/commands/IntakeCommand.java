@@ -10,7 +10,6 @@ import frc.robot.subsystems.MidtakeSubsystem;
 
 public class IntakeCommand extends ParallelRaceGroup {
     public IntakeCommand() {
-        addRequirements(IntakeSubsystem.get());
         addCommands(
                 IntakeSubsystem.get().new RunIntakeCommand(),
                 MidtakeSubsystem.get().new RunMidtakeCommand()
