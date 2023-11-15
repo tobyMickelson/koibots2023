@@ -30,9 +30,9 @@ public final class Constants {
         public static final double ROTATION_TO_DISTANCE = 0.04873967373;
 
         // CAN IDs
-        public static final int PRIMARY_LEFT_DRIVE = 15;
+        public static final int PRIMARY_LEFT_DRIVE = 14;
         public static final int PRIMARY_RIGHT_DRIVE = 12;
-        public static final int SECONDARY_LEFT_DRIVE = 14;
+        public static final int SECONDARY_LEFT_DRIVE = 15;
         public static final int SECONDARY_RIGHT_DRIVE = 13;
         public static final int INTAKE_MOTOR = 10;
         public static final int MIDTAKE_MOTOR = 4;

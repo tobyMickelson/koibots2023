@@ -17,8 +17,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     private static CANSparkMax primaryLeftMotor;
     private static CANSparkMax primaryRightMotor;
-    private static CANSparkMax secondaryLeftMotor;
-    private static CANSparkMax secondaryRightMotor;
+    // private static CANSparkMax secondaryLeftMotor;
+    // private static CANSparkMax secondaryRightMotor;
 
     /*
     private static RelativeEncoder primaryLeftEncoder;
@@ -30,13 +30,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public DrivetrainSubsystem() {
         primaryLeftMotor = new CANSparkMax(Constants.Motors.PRIMARY_LEFT_DRIVE, MotorType.kBrushless);
         primaryRightMotor = new CANSparkMax(Constants.Motors.PRIMARY_RIGHT_DRIVE, MotorType.kBrushless);
-        secondaryLeftMotor = new CANSparkMax(Constants.Motors.SECONDARY_LEFT_DRIVE, MotorType.kBrushless);
-        secondaryRightMotor = new CANSparkMax(Constants.Motors.SECONDARY_RIGHT_DRIVE, MotorType.kBrushless);
+        // secondaryLeftMotor = new CANSparkMax(Constants.Motors.SECONDARY_LEFT_DRIVE, MotorType.kBrushless);
+        // secondaryRightMotor = new CANSparkMax(Constants.Motors.SECONDARY_RIGHT_DRIVE, MotorType.kBrushless);
 
         primaryLeftMotor.setInverted(Constants.Motors.INVERT_LEFT_DRIVE);
         primaryRightMotor.setInverted(Constants.Motors.INVERT_RIGHT_DRIVE);
-        secondaryLeftMotor.follow(primaryLeftMotor);
-        secondaryRightMotor.follow(primaryRightMotor);
+        // secondaryLeftMotor.follow(primaryLeftMotor);
+        // secondaryRightMotor.follow(primaryRightMotor);
 
         /*
         primaryLeftEncoder = primaryLeftMotor.getEncoder();
