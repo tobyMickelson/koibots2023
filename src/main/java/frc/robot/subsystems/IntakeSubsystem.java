@@ -28,7 +28,7 @@ public class IntakeSubsystem extends SubsystemBase {
     // SETTERS
 
     public void setIntakeMotor(double speed) {
-        intakeMotor.set(speed);
+        intakeMotor.set(-speed);
     }
 
     // COMMANDS
@@ -77,7 +77,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
         @Override
         public void initialize() {
-            IntakeSubsystem.this.setIntakeMotor(speed);
+            IntakeSubsystem.this.setIntakeMotor(-speed);
         }
 
         @Override

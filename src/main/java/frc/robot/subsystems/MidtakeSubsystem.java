@@ -77,7 +77,7 @@ public class MidtakeSubsystem extends SubsystemBase {
 
         @Override
         public void initialize() {
-            MidtakeSubsystem.this.setMidtakeMotor(speed);
+            MidtakeSubsystem.this.setMidtakeMotor(-speed);
         }
 
         @Override

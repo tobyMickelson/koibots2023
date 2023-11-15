@@ -83,7 +83,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
         @Override
         public void initialize() {
-            ShooterSubsystem.this.setShooterMotors(speed);
+            ShooterSubsystem.this.setShooterMotors(-speed);
         }
 
         @Override

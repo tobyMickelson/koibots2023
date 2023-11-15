@@ -20,13 +20,13 @@ public final class Constants {
         public static final double INTAKE_REVERSE_SPEED = 0.5;
         public static final double MIDTAKE_SPEED = 0.5;
         public static final double MIDTAKE_REVERSE_SPEED = 0.25;
-        public static final double FAST_SHOOTER_SPEED = 0.8;
-        public static final double SLOW_SHOOTER_SPEED = 0.8;
+        public static final double FAST_SHOOTER_SPEED = 0.6;
+        public static final double SLOW_SHOOTER_SPEED = 0.3;
         public static final double SHOOTER_REVERSE_SPEED = 0.25;
         public static final boolean INVERT_LEFT_DRIVE = false;
         public static final boolean INVERT_RIGHT_DRIVE = true;
-        public static final boolean INVERT_LEFT_SHOOTER = false;
-        public static final boolean INVERT_RIGHT_SHOOTER = true;
+        public static final boolean INVERT_LEFT_SHOOTER = true;
+        public static final boolean INVERT_RIGHT_SHOOTER = false;
         public static final double ROTATION_TO_DISTANCE = 0.04873967373;
 
         // CAN IDs
