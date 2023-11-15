@@ -14,6 +14,8 @@ import java.util.function.DoubleSupplier;
 
 public class DrivetrainSubsystem extends SubsystemBase {
     private static DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
+    private static boolean slowMode = false;
+    private double speedMultiplier = Constants.Motors.DRIVE_SPEED_COEFFICIENT;
 
     private static CANSparkMax primaryLeftMotor;
     private static CANSparkMax primaryRightMotor;
@@ -67,13 +69,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // COMMANDS
 
     public class TeleopCommand extends CommandBase {
-        private final DoubleSupplier leftSpeed;
-        private final DoubleSupplier rightSpeed;
+        private DoubleSupplier leftSpeed;
+        private DoubleSupplier rightSpeed;
 
         public TeleopCommand(DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
             this.leftSpeed = leftSpeed;
             this.rightSpeed = rightSpeed;
             addRequirements(DrivetrainSubsystem.this);
+        }
+
+        private double deadzone(double in) {
+            if (in > Constants.Controls.DRIVE_DEADZONE || in < -Constants.Controls.DRIVE_DEADZONE) {return in;}
+            else {return 0.0;}
         }
 
         @Override
@@ -84,14 +91,29 @@ public class DrivetrainSubsystem extends SubsystemBase {
         @Override
         public void execute() {
             DrivetrainSubsystem.this.setMotors(
-                deadzone(leftSpeed.getAsDouble()) * Constants.Motors.DRIVE_SPEED_COEFFICIENT,
-                deadzone(rightSpeed.getAsDouble()) * Constants.Motors.DRIVE_SPEED_COEFFICIENT
+                deadzone(leftSpeed.getAsDouble()) * speedMultiplier,
+                deadzone(rightSpeed.getAsDouble()) * speedMultiplier
             );
         }
+    }
 
-        private double deadzone(double in) {
-            if (in > Constants.Controls.DRIVE_DEADZONE || in < -Constants.Controls.DRIVE_DEADZONE) {return in;}
-            else {return 0.0;}
+    public class SlowModeCommand extends CommandBase {
+        public SlowModeCommand(boolean enableSlowMode) {
+            slowMode = enableSlowMode;
+            if (slowMode) {
+                speedMultiplier = Constants.Motors.DRIVE_SLOW_SPEED_COEFFICIENT;
+            } else {
+                speedMultiplier = Constants.Motors.DRIVE_SPEED_COEFFICIENT;
+            }
+        }
+
+        public SlowModeCommand() {
+            slowMode = !slowMode;
+            if (slowMode) {
+                speedMultiplier = Constants.Motors.DRIVE_SLOW_SPEED_COEFFICIENT;
+            } else {
+                speedMultiplier = Constants.Motors.DRIVE_SPEED_COEFFICIENT;
+            }
         }
     }
 

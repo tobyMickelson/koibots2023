@@ -44,6 +44,8 @@ public class RobotContainer {
 
         controller.leftTrigger(Constants.Controls.TRIGGER_DEADZONE).whileTrue(new ShooterCommand());
         controller.leftBumper().whileTrue(new ShooterCommand(Constants.Motors.SLOW_SHOOTER_SPEED));
+
+        controller.x().onTrue(DrivetrainSubsystem.get().new SlowModeCommand());
     }
 
     /**
