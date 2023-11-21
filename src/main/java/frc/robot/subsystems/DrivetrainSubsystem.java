@@ -15,7 +15,7 @@ import java.util.function.DoubleSupplier;
 public class DrivetrainSubsystem extends SubsystemBase {
     private static DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
     private static boolean slowMode = false;
-    private double speedMultiplier = Constants.Motors.DRIVE_SPEED_COEFFICIENT;
+    private DoubleSupplier speedMultiplier = () -> Constants.Motors.DRIVE_SPEED_COEFFICIENT;
 
     private static CANSparkMax primaryLeftMotor;
     private static CANSparkMax primaryRightMotor;
@@ -91,8 +91,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
         @Override
         public void execute() {
             DrivetrainSubsystem.this.setMotors(
-                deadzone(leftSpeed.getAsDouble()) * speedMultiplier,
-                deadzone(rightSpeed.getAsDouble()) * speedMultiplier
+                deadzone(leftSpeed.getAsDouble()) * speedMultiplier.getAsDouble(),
+                deadzone(rightSpeed.getAsDouble()) * speedMultiplier.getAsDouble()
             );
         }
     }
@@ -101,18 +101,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
         public SlowModeCommand(boolean enableSlowMode) {
             slowMode = enableSlowMode;
             if (slowMode) {
-                speedMultiplier = Constants.Motors.DRIVE_SLOW_SPEED_COEFFICIENT;
+                speedMultiplier = () -> Constants.Motors.DRIVE_SLOW_SPEED_COEFFICIENT;
             } else {
-                speedMultiplier = Constants.Motors.DRIVE_SPEED_COEFFICIENT;
+                speedMultiplier = () -> Constants.Motors.DRIVE_SPEED_COEFFICIENT;
             }
         }
 
         public SlowModeCommand() {
             slowMode = !slowMode;
             if (slowMode) {
-                speedMultiplier = Constants.Motors.DRIVE_SLOW_SPEED_COEFFICIENT;
+                speedMultiplier = () -> Constants.Motors.DRIVE_SLOW_SPEED_COEFFICIENT;
             } else {
-                speedMultiplier = Constants.Motors.DRIVE_SPEED_COEFFICIENT;
+                speedMultiplier = () -> Constants.Motors.DRIVE_SPEED_COEFFICIENT;
             }
         }
     }

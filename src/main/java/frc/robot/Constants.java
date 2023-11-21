@@ -15,8 +15,8 @@ package frc.robot;
 public final class Constants {
     public static class Motors {
         // SPEEDS
-        public static final double DRIVE_SPEED_COEFFICIENT = 0.25;
-        public static final double DRIVE_SLOW_SPEED_COEFFICIENT = 0.10;
+        public static final double DRIVE_SPEED_COEFFICIENT = 0.4;
+        public static final double DRIVE_SLOW_SPEED_COEFFICIENT = 0.2;
         public static final double INTAKE_SPEED = 0.5;
         public static final double INTAKE_REVERSE_SPEED = 0.5;
         public static final double MIDTAKE_SPEED = 0.5;
